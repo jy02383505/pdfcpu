@@ -1,4 +1,4 @@
-module github.com/pdfcpu/pdfcpu
+module github.com/jy02383505/pdfcpu
 
 go 1.23.0
 
