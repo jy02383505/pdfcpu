@@ -786,6 +786,13 @@ func supportedCFEntry(d types.Dict) (bool, error) {
 		return aes, nil
 	}
 
+	// 兼容java侧将位长度(如256)作为字节长度给进来的场景
+	if *len == 128 || *len == 256 {
+		lenMapByAES := map[string]int{"AESV2": 16, "AESV3": 32}
+		d.Update("Length", types.Integer(lenMapByAES[*cfm]))
+		len = d.IntEntry("Length")
+	}
+
 	if !validateCFLength(*len, cfm) {
 		s := ""
 		if cfm != nil {
